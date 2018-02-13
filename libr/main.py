@@ -8,17 +8,17 @@ from libr.logger import *
 
 
 if __name__ == "__main__":
-    wds = []
-    pls = []
-
+    final_list = []
 
     for project in projects:
         path = os.path.join('../..', project)
         format_logging_info('Start project: '+ project)
-        wds += get_top_verbs_in_path(path)
+        final_list += get_top_verbs_in_path(path)
 
     top_size = 200
-    print('total %s words, %s unique' % (len(wds), len(set(wds))))
-    for word, occurence in collections.Counter(wds).most_common(top_size):
+    print('total %s words, %s unique' % (len(final_list), len(set(final_list))))
+
+    for word, occurence in collections.Counter(final_list).most_common(top_size):
         print(word, occurence)
+
     format_logging_info('Finish')
