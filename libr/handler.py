@@ -3,6 +3,7 @@ import collections
 
 from libr.trees import get_trees
 from nltk import pos_tag
+from libr.logger import *
 
 
 def flat(_list):
@@ -43,9 +44,11 @@ def get_top_verbs_in_path(path, top_size=10):
     fncs = [f for f in
             flat([[node.name.lower() for node in ast.walk(t) if isinstance(node, ast.FunctionDef)] for t in trees]) if
             not is_start_end(f)]
-    print('functions extracted')
+    format_logging_debug('functions extracted')
     verbs = flat([get_verbs_from_function_name(function_name) for function_name in fncs])
-    return collections.Counter(verbs).most_common(top_size)
+    top_verbs =collections.Counter(verbs).most_common(top_size)
+    format_logging_info(top_verbs)
+    return top_verbs
 
 
 

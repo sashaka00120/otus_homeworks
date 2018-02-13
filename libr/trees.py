@@ -1,19 +1,7 @@
 import os
 import ast
 
-
-def get_trees(path):
-    trees=[]
-    for filename in get_filenames(path):
-        with open(filename, 'r', encoding='utf-8') as attempt_handler:
-            main_file_content = attempt_handler.read()
-        try:
-            tree = ast.parse(main_file_content)
-        except SyntaxError as e:
-            print(e)
-            tree = None
-        trees.append(tree)
-    return trees
+from libr.logger import *
 
 
 def get_filenames(path):
@@ -32,9 +20,10 @@ def get_trees(path):
         with open(filename, 'r', encoding='utf-8') as attempt_handler:
             main_file_content = attempt_handler.read()
         try:
+            format_logging_debug('open file in path is OK')
             tree = ast.parse(main_file_content)
         except SyntaxError as e:
-            print(e)
+            format_logging_error('SyntaxError in func get_trees, tree = None')
             tree = None
         trees.append(tree)
     return trees
